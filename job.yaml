@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: queue-reader
+spec:
+  template:
+    spec:
+      containers:
+      - name: queue-reader
+        image: jeremyrickard/queue-reader:latest
+        envFrom:
+            - secretRef:
+                name: azure-storage-connection-string
+      restartPolicy: Never
+  backoffLimit: 4
